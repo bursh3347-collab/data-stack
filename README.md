@@ -1,8 +1,14 @@
+[English](README.md) | [中文](README_CN.md)
+
 # 📊 data-stack
+
+![Stars](https://img.shields.io/github/stars/bursh3347-collab/data-stack?style=flat-square)
+![License](https://img.shields.io/github/license/bursh3347-collab/data-stack?style=flat-square)
+![Last Commit](https://img.shields.io/github/last-commit/bursh3347-collab/data-stack?style=flat-square)
 
 > ⭐ Maturity: **L1 Growing** — 8 projects analyzed with real TEMC scores, comparison table, and best practices extracted.
 
-Extracted best practices and deep analyses from the world's top data analysis & visualization open-source projects. Part of the [GitHub Open Source Knowledge Restructuring Project](https://github.com/bursh3347-collab).
+Extracted best practices and deep analyses from **8 top data analytics & visualization open-source projects** on GitHub. Each project is scored using our [TEMC methodology](#temc-scoring) (Technology × Ecosystem × Market × Combo).
 
 ## 📈 Leaderboard (by TEMC Score)
 
@@ -19,27 +25,13 @@ Extracted best practices and deep analyses from the world's top data analysis & 
 
 > TEMC = **T**echnology × 0.25 + **E**cosystem × 0.20 + **M**arket × 0.30 + **C**ombo × 0.25
 
-## 📂 Repository Structure
+## 📋 What's Inside
 
-```
-data-stack/
-├── README.md                  ← You are here
-├── projects/                  ← Individual project analyses (TEMC-scored)
-│   ├── duckdb.md              — 🔴 86 — Embedded analytics DB (MIT)
-│   ├── polars.md              — 83 — Next-gen DataFrame (MIT)
-│   ├── apache-superset.md     — 77 — BI platform (Apache)
-│   ├── grafana.md             — 73 — Observability (AGPL⚠️)
-│   ├── pandas.md              — 73 — Python data analysis (BSD)
-│   ├── d3js.md                — 71 — Web visualization (ISC)
-│   ├── plotly.md              — 69 — Charting library (MIT)
-│   └── metabase.md            — 68 — BI tool (AGPL⚠️)
-├── best-practices/            ← Extracted patterns from all projects
-│   ├── data-pipeline.md       — Lazy eval, SQL-over-files, vectorized exec
-│   └── visualization-patterns.md — Plugin arch, declarative config, grammar of graphics
-├── code/                      ← Extracted code (coming in L2)
-├── comparison.md              ← Side-by-side comparison table
-└── SOURCES.md                 ← All source projects with links & licenses
-```
+### Comparison & Best Practices
+
+- [📊 Full Comparison Table](comparison.md) — Side-by-side across all 8 projects
+- [🔄 Data Pipeline Patterns](best-practices/data-pipeline.md) — Lazy eval, SQL-over-files, vectorized execution
+- [📈 Visualization Patterns](best-practices/visualization-patterns.md) — Plugin arch, declarative config, grammar of graphics
 
 ## 🔥 Quick Picks for Micro SaaS Developers
 
@@ -76,6 +68,34 @@ data-stack/
 | Superset (Apache) | |
 | Pandas (BSD) | |
 | D3.js (ISC) | |
+
+## 🏗️ Repository Structure
+
+```
+data-stack/
+├── README.md              ← You are here
+├── README_CN.md           ← 中文版
+├── projects/              ← Individual project analyses (TEMC scored)
+├── best-practices/        ← Extracted patterns from all projects
+├── code/                  ← Extracted code (coming in L2)
+├── comparison.md          ← Side-by-side comparison table
+└── SOURCES.md             ← All source projects with links & licenses
+```
+
+## <a id="temc-scoring"></a>📊 TEMC Scoring
+
+**TEMC** = Technology × 0.25 + Ecosystem × 0.20 + Market × 0.30 + Combo × 0.25
+
+- **T (Technology)**: Code quality, architecture, tech stack fit, docs
+- **E (Ecosystem)**: Stars/forks, community activity, integrations, maintainer reputation
+- **M (Market)**: Timing, competitive scarcity, trend alignment, commercializability
+- **C (Combo)**: Stack compatibility, modularity, business combo potential, learning cost
+
+## ⚔️ Solo Dev Verdict
+
+**DuckDB is the most underrated tool here.** Zero infrastructure, MIT license, and you can run SQL directly on Parquet files from your API routes. For a solo SaaS with analytics features, DuckDB + Plotly.js is the highest-ROI combo — skip the Grafana/Superset complexity entirely.
+
+**Polars is the future of data processing.** If you're doing any Python data work, switch from Pandas to Polars now. The lazy evaluation alone gives you 10-100x speedup with zero code complexity increase.
 
 ---
 
