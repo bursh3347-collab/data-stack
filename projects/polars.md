@@ -86,3 +86,7 @@ pola-rs/polars/
 - Stars growth: ~33k → 38k in recent months = 🚀 rocket trajectory
 - Polars Cloud announcement signals commercial backing
 - Iceberg/Delta Lake write support = enterprise data lake integration
+
+## 天子点评
+
+Pandas终结者，100倍性能+MIT许可。天子的Python数据脚本应全面切换Polars，新项目不要再用Pandas。

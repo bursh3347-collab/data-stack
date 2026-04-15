@@ -80,3 +80,7 @@ grafana/grafana/
 - 3,900+ open issues = significant maintenance burden
 - Grafana Labs captures most commercial value through Grafana Cloud
 - For SaaS analytics, Superset's embedded SDK is more directly useful
+
+## 天子点评
+
+插件架构是教科书级设计，但AGPL = 只能学不能用。花2小时理解Plugin SDK设计模式，然后关掉。

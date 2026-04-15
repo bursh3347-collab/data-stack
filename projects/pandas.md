@@ -83,3 +83,7 @@ pandas-dev/pandas/
 | API | Imperative | Lazy + Eager |
 | Ecosystem | Massive | Growing fast |
 | When to use | Prototyping, small data, ecosystem compat | Production, large data, performance |
+
+## 天子点评
+
+Python数据通用语言，但性能天花板明显。新项目用Polars，Pandas留给快速原型和生态兼容。

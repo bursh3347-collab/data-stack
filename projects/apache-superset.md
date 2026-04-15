@@ -88,3 +88,7 @@ apache/superset/
 | Frontend | React/TS | React | React | React/TS |
 | Best for | SQL power users | Non-technical | SQL teams | Monitoring |
 | Embedded SDK | ✅ | ✅ (paid) | ❌ | ✅ |
+
+## 天子点评
+
+最完整的开源BI，Embedded SDK模式值得学习。但Python后端+重部署不适合直接用，学架构后用DuckDB+自建更轻量。

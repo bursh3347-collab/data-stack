@@ -59,3 +59,7 @@ Metabase's **visual query builder** is the best open-source implementation of "l
 - 4,094 open issues = maintenance concerns
 - Metabase Inc. controls the roadmap
 - Better to study the UX and build from scratch in TypeScript
+
+## 天子点评
+
+视觉查询构建器UX设计值得研究，但AGPL+Clojure = 完全不可用。花30分钟体验产品学UX思路即可。

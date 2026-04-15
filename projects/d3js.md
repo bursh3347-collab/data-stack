@@ -78,3 +78,7 @@ d3/ (umbrella package)
 | Learning curve | Steep | Easy | Easy | Medium |
 | Customization | Unlimited | Limited | Medium | High |
 | Best for | Custom viz | Quick charts | React dashboards | Enterprise |
+
+## 天子点评
+
+Web可视化地基，但学习曲线陡峭到离谱。天子直接用Recharts/Plotly做SaaS图表，极度定制化需求时才碰D3。

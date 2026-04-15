@@ -99,3 +99,7 @@ duckdb/duckdb/
 | Deployment | Embedded | Embedded | Server |
 | Large scans | 🔥 100x faster | Slow | Medium |
 | Transactions | Basic | Full ACID | Full ACID |
+
+## 天子点评
+
+2020年代最重要的数据工具——MIT许可+嵌入式+SQL-over-files = SaaS分析功能的核弹武器。DuckDB-Wasm浏览器端分析是差异化杀手锏，必须掌握。

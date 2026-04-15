@@ -54,3 +54,7 @@ Plotly.js offers the **best balance of interactivity and ease-of-use** among cha
 - For simple charts, Recharts (smaller, React-native) is often better
 - For complex custom viz, D3 gives more control
 - 811 open issues suggest limited maintenance bandwidth
+
+## 天子点评
+
+`npm install react-plotly.js` 是给Next.js加图表的最快路径。MIT许可，40+图表类型，够用就行，不纠结。
