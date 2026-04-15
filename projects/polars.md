@@ -1,52 +1,88 @@
 # Polars
 
-> Lightning-fast DataFrame library — Rust engine, Python/Node.js API.
+> Extremely fast DataFrame library — the Rust-powered successor to Pandas.
 
 | Metric | Data |
 |--------|------|
 | GitHub | [pola-rs/polars](https://github.com/pola-rs/polars) |
-| Stars | ~33,000 |
-| Forks | ~2,200 |
-| License | MIT |
-| Language | Rust (Python/Node.js/R bindings) |
-| Last Update | 2026-04 (very active) |
+| Stars | 38,187 |
+| Forks | 2,782 |
+| License | MIT ✅ |
+| Language | Rust (core engine) + Python bindings |
+| Last Update | 2026-04-15 (commits TODAY!) |
+| Open Issues | 2,719 |
 | Contributors | 500+ |
+| Key: | Multiple commits per day, extremely active development |
 
 ## TEMC Score
 
 | Dimension | Score | Rationale |
 |-----------|-------|-----------|
-| T Tech | 92 | 10-100x faster than Pandas. Lazy evaluation, query optimization, multi-threaded. Rust core = memory safe. |
-| E Ecosystem | 80 | 33k stars, rapidly growing. Replacing Pandas in performance-critical pipelines. Node.js bindings available. |
-| M Market | 85 | Pandas replacement wave underway. Performance demands growing with larger datasets. |
-| C Combo | 72 | Node.js bindings exist! Rust engine patterns valuable. MIT license = fully commercial. |
-| **Overall** | **83** | T×0.25 + E×0.20 + M×0.30 + C×0.25 = 82.7 |
+| T (Tech) | 90 | Rust engine on Apache Arrow. Lazy evaluation + query optimizer. Multi-threaded by default. Zero-copy operations. Streaming engine for out-of-core processing. SIMD vectorization. |
+| E (Ecosystem) | 82 | 38k⭐ growing rapidly (was 33k recently). Python + Rust + Node.js bindings. Iceberg/Delta Lake support. Active Discord community. |
+| M (Market) | 85 | "Next-gen DataFrame" narrative strong. Pandas replacement trend accelerating. Adopted by data engineering teams at scale. |
+| C (Combo) | 75 | Rust engine = extreme performance for data-heavy SaaS. Python bindings for ML pipelines. Node.js bindings exist. MIT license = full commercial freedom. |
+| **Composite** | **83** | 90×0.25 + 82×0.20 + 85×0.30 + 75×0.25 |
 
 ## Core Value
-The next generation DataFrame library. 10-100x faster than Pandas by leveraging Rust, Apache Arrow, lazy evaluation, and automatic multi-threading. Same DataFrame paradigm, dramatically better performance.
 
-## Architecture Highlights
-- **Lazy Evaluation**: Build query plan → optimize → execute (like SQL query planner)
-- **Apache Arrow Backend**: Columnar memory format for zero-copy operations
-- **Multi-threaded Engine**: Automatic parallelization of operations
-- **Expression API**: Composable, chainable data transformations
-- **Streaming Mode**: Process larger-than-memory datasets
-- **Node.js Bindings**: `nodejs-polars` package for TypeScript/JavaScript
+Polars is the **performance revolution in data processing**. 10-100x faster than Pandas, with a query optimizer that rivals database engines. The lazy evaluation pattern is a masterclass in efficient computation.
 
-## Key Modules
-1. **Expression Engine** (Core) — Lazy expressions, query optimization
-2. **I/O Layer** (Medium) — CSV, Parquet, JSON, IPC, database connectors
-3. **GroupBy/Join** (Medium) — Parallel aggregation and join operations
-4. **Streaming** (Medium) — Out-of-core processing for large datasets
-5. **Language Bindings** (Medium) — Python, Node.js, R, Rust native
+## Architecture Analysis
 
-## Extractable Patterns
-- **⭐ Universal Code Candidate: Lazy Evaluation Pattern** → code-base/patterns/lazy-eval/
-- Query optimization (predicate pushdown, projection pushdown)
-- Apache Arrow columnar format integration
-- Rust-to-Node.js FFI binding pattern
+```
+pola-rs/polars/
+├── crates/                 ← Rust core (the engine)
+│   ├── polars-core/        — Core data structures (Series, DataFrame)
+│   ├── polars-lazy/        — Lazy evaluation engine
+│   ├── polars-plan/        — Query plan optimizer
+│   ├── polars-ops/         — Operations (join, groupby, sort)
+│   ├── polars-io/          — I/O (CSV, Parquet, JSON, IPC)
+│   ├── polars-sql/         — SQL interface
+│   ├── polars-stream/      — Streaming engine (new!)
+│   └── polars-arrow/       — Arrow integration
+├── py-polars/              ← Python bindings (PyO3)
+├── pyo3-polars/            ← PyO3 extension utilities
+├── docs/                   ← Documentation
+└── examples/               ← Usage examples
+```
 
-## Why This Matters for Tianzi
-- Node.js bindings = usable in TypeScript backend
-- MIT license = fully commercial
-- Performance patterns applicable to any data-heavy SaaS
+**Key Architectural Patterns**:
+- **Lazy Evaluation**: Build computation graph → optimize → execute. Avoids unnecessary work.
+- **Apache Arrow Backend**: Zero-copy data sharing between systems
+- **Query Optimizer**: Predicate pushdown, projection pushdown, common subexpression elimination
+- **Streaming Engine**: Process datasets larger than RAM
+- **Expression API**: Composable, type-safe transformations
+
+## Extractable Modules
+
+| Module | Difficulty | Time | Target |
+|--------|-----------|------|--------|
+| Lazy evaluation pattern | Learn | 2h | best-practices/data-pipeline.md |
+| Expression API design | Learn | 1h | Conceptual reference |
+| Arrow-based I/O pattern | Adapt | 3h | code-base/data/arrow-io/ |
+| Streaming processing pattern | Learn | 2h | best-practices/data-pipeline.md |
+
+⭐ **Universal Code Candidate**: Lazy evaluation + query optimization pattern — applicable to any data processing system.
+
+## Commercial Value
+
+- **Pain point**: Slow data processing in production → 致命级 for data-intensive apps
+- **TAM**: Every company processing >1GB data regularly (millions)
+- **Monetization**: Polars itself is MIT, but Polars Cloud (commercial) is emerging
+- **For天子**: Use Polars as the data processing engine in any data-heavy SaaS backend. MIT license = full freedom.
+
+## Why It Might NOT Be Worth It
+
+- Rust core requires Rust knowledge to contribute or deeply customize
+- Ecosystem still smaller than Pandas (fewer tutorials, Stack Overflow answers)
+- Some Pandas integrations (scikit-learn, plotly) don't work natively with Polars yet
+- API still evolving — breaking changes possible in minor versions
+- Node.js bindings less mature than Python bindings
+
+## Growth Signal
+
+- 38k⭐ with multiple commits per day (2026-04-15)
+- Stars growth: ~33k → 38k in recent months = 🚀 rocket trajectory
+- Polars Cloud announcement signals commercial backing
+- Iceberg/Delta Lake write support = enterprise data lake integration

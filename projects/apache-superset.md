@@ -1,47 +1,90 @@
 # Apache Superset
 
-> Modern data exploration and visualization platform.
+> Modern data exploration and visualization platform — the open-source Tableau alternative.
 
 | Metric | Data |
 |--------|------|
 | GitHub | [apache/superset](https://github.com/apache/superset) |
-| Stars | ~66,000 |
-| Forks | ~15,000 |
-| License | Apache-2.0 |
-| Language | Python + TypeScript (React frontend) |
-| Last Update | 2026-04 (very active) |
-| Contributors | 1,800+ |
+| Stars | 72,419 |
+| Forks | 17,037 |
+| License | Apache-2.0 ✅ |
+| Language | TypeScript (frontend) + Python (backend) |
+| Last Update | 2026-04-15 (today!) |
+| Open Issues | 1,250 |
+| Architecture | Monorepo: superset-frontend/ + superset/ + superset-embedded-sdk/ |
 
 ## TEMC Score
 
 | Dimension | Score | Rationale |
 |-----------|-------|-----------|
-| T Tech | 85 | Full BI platform. SQL Lab, 50+ viz types, dashboard builder, RBAC, caching. Python/Flask backend + React/TypeScript frontend. |
-| E Ecosystem | 88 | 66k stars, Apache Foundation, 1800+ contributors. Preset.io (commercial cloud). Enterprise-grade. |
-| M Market | 82 | Growing as open-source Tableau/Looker alternative. Cloud BI market expanding. Preset.io proving commercial viability. |
-| C Combo | 68 | Python backend (not Tianzi's primary stack). React frontend patterns useful. Dashboard design patterns valuable. |
-| **Overall** | **80** | T×0.25 + E×0.20 + M×0.30 + C×0.25 = 79.8 |
+| T (Tech) | 82 | Flask + React + TypeScript. Docker-compose ready. Plugin architecture for chart types. Embedded SDK. SQL Lab for ad-hoc queries. Comprehensive test suite. |
+| E (Ecosystem) | 88 | 72k⭐, Apache Foundation governance, 1200+ contributors. Supports 40+ databases. Active commercial ecosystem (Preset.io). |
+| M (Market) | 75 | BI market $33B+ growing. Tableau/Power BI alternative for self-hosted. Embedded analytics demand rising. |
+| C (Combo) | 65 | TypeScript frontend matches base stack. Python backend requires learning. Docker deployment. Embedded SDK useful for SaaS. |
+| **Composite** | **77** | 82×0.25 + 88×0.20 + 75×0.30 + 65×0.25 |
 
 ## Core Value
-Open-source business intelligence platform that rivals Tableau and Looker. SQL-first approach, 50+ visualization types, interactive dashboards, and RBAC security. Self-hostable with Docker.
 
-## Architecture Highlights
-- **SQL Lab**: Interactive SQL IDE with auto-complete, query history, result visualization
-- **Dashboard Builder**: Drag-and-drop dashboard composition with filters, cross-filtering
-- **Visualization Plugins**: Plugin architecture for custom chart types (ECharts-based)
-- **Security Model**: RBAC with row-level security, dataset permissions
-- **Caching Layer**: Redis/Memcached for query results and dashboard rendering
-- **Database Connectors**: SQLAlchemy-based, supports 30+ databases
+Superset is the **most complete open-source BI platform**. It combines SQL exploration, dashboard building, and chart visualization in a single platform. The embedded SDK enables white-label analytics.
 
-## Key Modules
-1. **SQL Lab** (Large) — SQL IDE, query execution, result caching
-2. **Dashboard Engine** (Large) — Layout, filters, cross-filtering, embedding
-3. **Viz Plugin System** (Medium) — ECharts-based chart types, custom plugins
-4. **Security/RBAC** (Medium) — Roles, permissions, row-level security
-5. **Database Connector** (Medium) — SQLAlchemy adapters for 30+ databases
+## Architecture Analysis
 
-## Extractable Patterns
-- **⭐ Universal Code Candidate: Dashboard Layout Engine** → code-base/ui/dashboard-layout/
-- SQL query builder with parameterization
-- RBAC permission model design
-- Chart plugin architecture
+```
+apache/superset/
+├── superset/              ← Python backend (Flask + SQLAlchemy)
+│   ├── charts/            — Chart API & models
+│   ├── dashboards/        — Dashboard management
+│   ├── datasets/          — Data source management
+│   ├── sql_lab/           — SQL editor
+│   ├── security/          — RBAC & auth
+│   └── db_engine_specs/   — 40+ database connectors
+├── superset-frontend/     ← React + TypeScript
+│   ├── src/components/    — UI components
+│   ├── src/views/         — Page views
+│   └── src/visualizations/— Chart plugins
+├── superset-embedded-sdk/ ← Embeddable JS SDK
+├── docker-compose.yml     — Full deployment
+└── helm/                  — Kubernetes deployment
+```
+
+**Key Patterns**:
+- **Chart Plugin System**: Each chart type is a plugin with schema, transform, and render
+- **Database Abstraction**: db_engine_specs pattern for multi-database support
+- **Embedded SDK**: iframe-based embedding with postMessage API
+
+## Extractable Modules
+
+| Module | Difficulty | Time | Target |
+|--------|-----------|------|--------|
+| Chart plugin architecture | Adapt | 4h | best-practices/visualization-patterns.md |
+| Database connector pattern | Adapt | 3h | code-base/database/multi-db-connector/ |
+| Embedded analytics SDK | Copy | 2h | code-base/analytics/embed-sdk/ |
+| SQL Lab UI components | Heavy | 8h | Too coupled to Flask backend |
+
+⭐ **Universal Code Candidate**: Database connector abstraction pattern (db_engine_specs) — reusable pattern for any multi-database product.
+
+## Commercial Value
+
+- **Pain point**: Companies need BI without paying Tableau ($70/user/mo) → 重要级
+- **TAM**: BI market $33B+, self-hosted segment growing 25% YoY
+- **Monetization**: Preset.io (commercial Superset) charges $20-50/user/mo
+- **Differentiation**: Embedded SDK enables analytics-as-a-feature for SaaS products
+- **For天子**: Study the embedded SDK pattern for adding analytics to any SaaS
+
+## Why It Might NOT Be Worth It
+
+- Python backend (Flask) — not aligned with天子's TypeScript base stack
+- Heavy deployment (Redis + Celery + PostgreSQL + Workers)
+- 1,250 open issues suggest maintenance debt
+- Preset.io commercial version captures most enterprise value
+- Better to study patterns than deploy entire platform
+
+## Competitors
+
+| | Superset | Metabase | Redash | Grafana |
+|---|---|---|---|---|
+| Stars | 72k | 47k | 27k | 73k |
+| Backend | Python/Flask | Clojure | Python | Go |
+| Frontend | React/TS | React | React | React/TS |
+| Best for | SQL power users | Non-technical | SQL teams | Monitoring |
+| Embedded SDK | ✅ | ✅ (paid) | ❌ | ✅ |

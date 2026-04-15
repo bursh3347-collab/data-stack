@@ -1,98 +1,180 @@
-# Data Visualization Design Patterns
+# Visualization Patterns & Best Practices
 
-> Patterns extracted from D3.js, Grafana, Superset, and modern visualization practices.
+> Extracted from D3.js, Plotly.js, Grafana, and Superset — the world's top visualization tools.
 
-## Pattern 1: Choose the Right Chart Type
+## 1. Plugin Architecture for Charts (from Grafana & Superset)
+
+Both Grafana and Superset use a plugin system where each chart type is an independent module.
+
+**Pattern**:
+```typescript
+// Chart Plugin Interface
+interface ChartPlugin {
+  // Metadata
+  id: string;
+  name: string;
+  thumbnail: string;
+  
+  // Schema
+  controlPanel: ControlPanelConfig;  // What settings the user can configure
+  transformProps: (data: QueryData) => ChartProps;  // Data transformation
+  
+  // Rendering
+  Chart: React.ComponentType<ChartProps>;  // The actual chart component
+}
+
+// Register plugins
+const chartRegistry = new Map<string, ChartPlugin>();
+chartRegistry.set('bar', BarChartPlugin);
+chartRegistry.set('line', LineChartPlugin);
+chartRegistry.set('pie', PieChartPlugin);
+
+// Usage
+const plugin = chartRegistry.get(chartType);
+const props = plugin.transformProps(rawData);
+return <plugin.Chart {...props} />;
+```
+
+**Why it matters**: Decouples chart rendering from the dashboard framework. New chart types can be added without modifying core code.
+
+**Applicable to**: Any SaaS with dashboards or reporting features.
+
+## 2. Declarative Chart Configuration (from Plotly.js)
+
+Describe WHAT you want, not HOW to draw it.
+
+```javascript
+// Plotly's declarative approach
+const data = [{
+  type: 'bar',
+  x: ['Q1', 'Q2', 'Q3', 'Q4'],
+  y: [100, 200, 150, 300],
+  marker: { color: '#6366f1' }
+}];
+
+const layout = {
+  title: 'Revenue by Quarter',
+  xaxis: { title: 'Quarter' },
+  yaxis: { title: 'Revenue ($K)' }
+};
+
+Plotly.newPlot('chart', data, layout);
+```
+
+**Design principle**: Chart configs are JSON-serializable → can be stored in DB, shared via API, versioned.
+
+**Applicable to**: Any product where users create/save/share charts.
+
+## 3. Grammar of Graphics (inspired by D3.js)
+
+D3's approach decomposes visualization into primitives:
 
 ```
-Comparison       → Bar chart, Grouped bar
-Trend over time  → Line chart, Area chart
-Part-of-whole    → Pie/Donut (≤5 slices), Treemap (many categories)
-Distribution     → Histogram, Box plot, Violin
-Correlation      → Scatter plot, Bubble chart
-Geographic       → Choropleth map, Point map
-Hierarchy        → Treemap, Sunburst
-Network          → Force-directed graph, Sankey diagram
-Flow             → Sankey, Alluvial
+Data → Scales → Shapes → Axes → Interactions
 ```
 
-## Pattern 2: Dashboard Layout Architecture (from Grafana)
+| Primitive | D3 Module | Purpose |
+|-----------|-----------|--------|
+| Scales | d3-scale | Map data values → visual values |
+| Shapes | d3-shape | Generate SVG paths (line, area, arc) |
+| Axes | d3-axis | Render axis ticks and labels |
+| Layouts | d3-hierarchy | Compute positions (treemap, pack) |
+| Forces | d3-force | Physics simulation for graph layouts |
 
+**Key Insight**: Scales are the most reusable pattern. A scale that maps `[0, 1000]` → `[0, 500px]` is needed everywhere.
+
+```javascript
+// Scale pattern — universally applicable
+const xScale = d3.scaleLinear()
+  .domain([0, maxValue])    // data space
+  .range([0, chartWidth]);  // pixel space
+
+// Time scale
+const timeScale = d3.scaleTime()
+  .domain([startDate, endDate])
+  .range([0, chartWidth]);
+
+// Color scale
+const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 ```
-┌─────────────────────────────────────────┐
-│  KPI Row (4 number cards)               │
-├────────────────────┬────────────────────┤
-│  Primary Chart     │  Secondary Chart   │
-│  (line/area)       │  (bar/pie)         │
-├────────────────────┴────────────────────┤
-│  Detail Table (sortable, filterable)    │
-└─────────────────────────────────────────┘
+
+## 4. Dashboard Layout System (from Grafana)
+
+Grafana uses a grid-based layout with drag-and-drop panels.
+
+**Pattern**:
+```typescript
+interface Panel {
+  id: string;
+  type: string;  // chart plugin id
+  gridPos: { x: number; y: number; w: number; h: number };
+  datasource: DataSourceRef;
+  targets: Query[];  // queries to execute
+  options: PanelOptions;  // chart-specific config
+}
+
+interface Dashboard {
+  panels: Panel[];
+  time: { from: string; to: string };  // global time range
+  variables: Variable[];  // template variables
+  refresh: string;  // auto-refresh interval
+}
 ```
 
-**Principles**:
-- KPIs at top (most important numbers visible immediately)
-- Big charts in the middle (trends and comparisons)
-- Detail tables at bottom (drill-down)
-- Global filters at top or sidebar (affect all panels)
+**Key Design Decisions**:
+- Grid positions are absolute (12-column grid)
+- Each panel independently fetches its data
+- Global time range propagates to all panels
+- Variables enable dynamic filtering across all panels
 
-## Pattern 3: Responsive Chart Rendering
+## 5. Responsive Chart Sizing
+
+All major libraries handle responsive sizing differently:
+
+| Library | Approach |
+|---------|----------|
+| D3.js | Manual: listen to resize events, re-render |
+| Plotly.js | `Plotly.Plots.resize()` or `responsive: true` config |
+| Grafana | Panel container handles sizing, chart fills container |
+
+**Best practice**: Use a ResizeObserver wrapper:
 
 ```typescript
-function useChartResize(containerRef: RefObject<HTMLDivElement>) {
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+function useChartSize(ref: RefObject<HTMLDivElement>) {
+  const [size, setSize] = useState({ width: 0, height: 0 });
   
   useEffect(() => {
     const observer = new ResizeObserver(entries => {
       const { width, height } = entries[0].contentRect;
-      setDimensions({ width, height });
+      setSize({ width, height });
     });
-    if (containerRef.current) observer.observe(containerRef.current);
+    if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
-  }, []);
+  }, [ref]);
   
-  return dimensions;
+  return size;
 }
 ```
 
-## Pattern 4: Data-Driven Color Scales (from D3)
+## 6. Data-to-Visual Mapping Checklist
 
-```typescript
-// Sequential (low → high)
-const heatScale = d3.scaleSequential(d3.interpolateViridis).domain([0, 100]);
+Before building any chart, answer these questions:
 
-// Diverging (negative ← zero → positive)
-const changeScale = d3.scaleDiverging(d3.interpolateRdYlGn).domain([-50, 0, 50]);
+1. **What data type?** → Determines chart type
+   - Categorical → Bar, Pie
+   - Time series → Line, Area
+   - Correlation → Scatter
+   - Distribution → Histogram, Box
+   - Hierarchy → Treemap, Sunburst
+   - Network → Force graph, Sankey
 
-// Categorical (distinct groups)
-const categoryScale = d3.scaleOrdinal(d3.schemeTableau10);
-```
+2. **How much data?** → Determines rendering approach
+   - <1K points → SVG (D3, Recharts)
+   - 1K-100K → Canvas or WebGL (Plotly scattergl)
+   - >100K → Aggregation first, then render
 
-## Pattern 5: Embeddable Charts (from Metabase)
-
-For SaaS products that need analytics:
-
-```typescript
-// 1. Generate signed JWT for embedding
-const token = jwt.sign(
-  { resource: { dashboard: dashboardId }, params: { client_id: clientId } },
-  EMBEDDING_SECRET,
-  { expiresIn: '1h' }
-);
-
-// 2. Render iframe
-<iframe
-  src={`/embed/dashboard/${token}`}
-  width="100%"
-  height="600px"
-  frameBorder="0"
-/>
-```
-
-## Anti-Patterns
-
-1. **3D charts** — Almost always misleading, use 2D
-2. **Too many colors** — Max 7-8 distinct colors, group the rest as "Other"
-3. **Pie charts with many slices** — Use bar chart if > 5 categories
-4. **Dual Y-axes** — Misleading correlations, use separate charts
-5. **No axis labels** — Always label axes and include units
-6. **Rainbow color scales** — Use perceptually uniform scales (Viridis)
+3. **Interactive?** → Determines library choice
+   - Static report → Any library
+   - Hover/click → Plotly, D3, ECharts
+   - Brush/zoom → D3, Plotly, Grafana
+   - Real-time → Grafana, custom D3

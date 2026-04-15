@@ -1,42 +1,61 @@
 # Metabase
 
-> The simplest open-source BI tool — ask questions, get answers.
+> The easy-to-use open-source BI tool that lets everyone work with data.
 
 | Metric | Data |
 |--------|------|
 | GitHub | [metabase/metabase](https://github.com/metabase/metabase) |
-| Stars | ~42,000 |
-| Forks | ~5,500 |
-| License | AGPL-3.0 (+ commercial license) |
-| Language | Clojure + TypeScript (React frontend) |
-| Last Update | 2026-04 (very active) |
-| Contributors | 800+ |
+| Stars | 46,863 |
+| Forks | 6,376 |
+| License | AGPL-3.0 ⚠️ (copyleft) |
+| Language | Clojure (backend) + JavaScript/TypeScript (frontend) |
+| Last Update | 2026-04-15 (today!) |
+| Open Issues | 4,094 |
+| Backed by | Metabase Inc. (commercial company) |
 
 ## TEMC Score
 
 | Dimension | Score | Rationale |
 |-----------|-------|-----------|
-| T Tech | 82 | No-code query builder, SQL mode, embedding API, caching, alerts. Clean UX. Production-grade. |
-| E Ecosystem | 82 | 42k stars, established company. Self-serve analytics leader. Good embedding ecosystem. |
-| M Market | 80 | Growing embedded analytics market. Competes with Superset, Redash. Commercial success proven. |
-| C Combo | 55 | Clojure backend = not relevant to Tianzi's stack. Embedding API and UX patterns are valuable references. |
-| **Overall** | **75** | T×0.25 + E×0.20 + M×0.30 + C×0.25 = 74.6 |
+| T (Tech) | 75 | Clean UX design, visual query builder is excellent. Clojure backend is niche. React frontend. Embedding API well-designed. |
+| E (Ecosystem) | 80 | 47k⭐, strong community, 20+ database drivers. Commercial company ensures longevity. |
+| M (Market) | 72 | "BI for everyone" — low-code analytics growing fast. SMB market underserved. |
+| C (Combo) | 45 | ⚠️ AGPL + Clojure backend = cannot reuse code. UX patterns are the main learning value. |
+| **Composite** | **68** | 75×0.25 + 80×0.20 + 72×0.30 + 45×0.25 |
 
 ## ⚠️ License Warning
-**AGPL-3.0** — Self-hosting OK for internal use. Embedding in SaaS requires commercial license. Reference patterns and UX, don't fork.
+
+**AGPL-3.0** — same restriction as Grafana. Study UX patterns and product design only.
 
 ## Core Value
-Democratize data access. Non-technical users can create dashboards without SQL. Embeddable analytics for SaaS products. Question-based interface (natural language → SQL → chart).
+
+Metabase's **visual query builder** is the best open-source implementation of "let non-technical users explore data." The UX design patterns for making SQL accessible are world-class.
 
 ## Architecture Highlights
-- **Question Builder**: Visual no-code query interface that generates SQL
-- **Embedding API**: White-label dashboards inside other products (iframe + JWT)
-- **Collections & Permissions**: Organize dashboards with granular access control
-- **Caching Engine**: Query result caching with TTL and invalidation
-- **Pulse/Alerts**: Scheduled dashboard delivery via email/Slack
 
-## Extractable Patterns
-- **⭐ Universal Code Candidate: Embeddable Analytics Pattern** → code-base/ui/embedded-analytics/
-- No-code query builder UX design
-- JWT-based embedding authentication
-- Question → SQL translation approach
+- **Visual Query Builder**: Drag-and-drop interface that generates SQL
+- **Question → Dashboard flow**: Natural progression from ad-hoc query to saved dashboard
+- **Embedding**: iframe + JWT token for white-label analytics
+- **Driver System**: Pluggable database drivers for 20+ backends
+
+## What to Learn (not copy)
+
+| Pattern | Value |
+|---------|-------|
+| Visual query builder UX | 🔥 Study for any data product |
+| Progressive disclosure in data tools | 🔥 UX pattern reference |
+| Embedding via JWT tokens | Medium — common pattern |
+
+## Commercial Value
+
+- **Pain point**: SMBs need analytics without hiring data engineers → 重要级
+- **Metabase pricing**: Free (open-source) → Pro $85/user/mo → Enterprise custom
+- **For天子**: Study the "make data accessible" UX philosophy. The visual query builder pattern could inspire SaaS features.
+
+## Why It Might NOT Be Worth It
+
+- AGPL-3.0 = no code reuse
+- Clojure backend = completely outside base stack
+- 4,094 open issues = maintenance concerns
+- Metabase Inc. controls the roadmap
+- Better to study the UX and build from scratch in TypeScript
