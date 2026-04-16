@@ -12,24 +12,34 @@
 | 3 | Apache Arrow | [apache/arrow](https://github.com/apache/arrow) | ~15,000 | Apache-2.0 | 79 | 2026-04-16 |
 | 4 | Pandas | [pandas-dev/pandas](https://github.com/pandas-dev/pandas) | 48,508 | BSD-3-Clause | 73 | 2026-04-15 |
 
+## Orchestration & Data Quality
+
+| # | Project | GitHub | Stars | License | TEMC | Added |
+|---|---------|--------|-------|---------|------|-------|
+| 5 | dbt-core | [dbt-labs/dbt-core](https://github.com/dbt-labs/dbt-core) | ~10,500 | Apache-2.0 | 84 | 2026-04-16 |
+| 6 | Apache Airflow | [apache/airflow](https://github.com/apache/airflow) | ~38,000 | Apache-2.0 | 81 | 2026-04-16 |
+| 7 | Dagster | [dagster-io/dagster](https://github.com/dagster-io/dagster) | ~12,500 | Apache-2.0 | 80 | 2026-04-16 |
+| 8 | Prefect | [PrefectHQ/prefect](https://github.com/PrefectHQ/prefect) | ~17,500 | Apache-2.0 | 78 | 2026-04-16 |
+| 9 | Great Expectations | [great-expectations/great_expectations](https://github.com/great-expectations/great_expectations) | ~10,000 | Apache-2.0 | 75 | 2026-04-16 |
+
 ## BI / Data App Platforms
 
 | # | Project | GitHub | Stars | License | TEMC | Added |
 |---|---------|--------|-------|---------|------|-------|
-| 5 | Apache Superset | [apache/superset](https://github.com/apache/superset) | 72,419 | Apache-2.0 | 77 | 2026-04-15 |
-| 6 | Evidence | [evidence-dev/evidence](https://github.com/evidence-dev/evidence) | ~5,000 | MIT | 78 | 2026-04-16 |
-| 7 | Streamlit | [streamlit/streamlit](https://github.com/streamlit/streamlit) | ~38,000 | Apache-2.0 | 76 | 2026-04-16 |
-| 8 | Observable Framework | [observablehq/framework](https://github.com/observablehq/framework) | ~3,000 | ISC | 72 | 2026-04-16 |
-| 9 | Grafana | [grafana/grafana](https://github.com/grafana/grafana) | 73,210 | AGPL-3.0 ⚠️ | 73 | 2026-04-15 |
-| 10 | Metabase | [metabase/metabase](https://github.com/metabase/metabase) | 46,863 | AGPL-3.0 ⚠️ | 68 | 2026-04-15 |
+| 10 | Apache Superset | [apache/superset](https://github.com/apache/superset) | 72,419 | Apache-2.0 | 77 | 2026-04-15 |
+| 11 | Evidence | [evidence-dev/evidence](https://github.com/evidence-dev/evidence) | ~5,000 | MIT | 78 | 2026-04-16 |
+| 12 | Streamlit | [streamlit/streamlit](https://github.com/streamlit/streamlit) | ~38,000 | Apache-2.0 | 76 | 2026-04-16 |
+| 13 | Observable Framework | [observablehq/framework](https://github.com/observablehq/framework) | ~3,000 | ISC | 72 | 2026-04-16 |
+| 14 | Grafana | [grafana/grafana](https://github.com/grafana/grafana) | 73,210 | AGPL-3.0 ⚠️ | 73 | 2026-04-15 |
+| 15 | Metabase | [metabase/metabase](https://github.com/metabase/metabase) | 46,863 | AGPL-3.0 ⚠️ | 68 | 2026-04-15 |
 
 ## Visualization Libraries
 
 | # | Project | GitHub | Stars | License | TEMC | Added |
 |---|---------|--------|-------|---------|------|-------|
-| 11 | Recharts | [recharts/recharts](https://github.com/recharts/recharts) | ~25,000 | MIT | 80 | 2026-04-16 |
-| 12 | D3.js | [d3/d3](https://github.com/d3/d3) | 112,731 | ISC | 71 | 2026-04-15 |
-| 13 | Plotly.js | [plotly/plotly.js](https://github.com/plotly/plotly.js) | 18,173 | MIT | 69 | 2026-04-15 |
+| 16 | Recharts | [recharts/recharts](https://github.com/recharts/recharts) | ~25,000 | MIT | 80 | 2026-04-16 |
+| 17 | D3.js | [d3/d3](https://github.com/d3/d3) | 112,731 | ISC | 71 | 2026-04-15 |
+| 18 | Plotly.js | [plotly/plotly.js](https://github.com/plotly/plotly.js) | 18,173 | MIT | 69 | 2026-04-15 |
 
 ## License Compliance Notes
 
